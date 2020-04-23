@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 import { BrowserRouter } from "react-router-dom";
 
@@ -30,10 +31,12 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 // store creation and persist
 const store = createStore(
   persistedReducer,
-  compose(
-    applyMiddleware(...middlewares),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
+  composeWithDevTools(applyMiddleware(...middlewares))
+
+  // compose(
+  //   applyMiddleware(...middlewares),
+  //   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  // )
 );
 const persistor = persistStore(store);
 
